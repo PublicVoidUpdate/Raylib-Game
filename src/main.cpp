@@ -1,5 +1,5 @@
 #include <raylib-cpp.hpp>
-
+#include "InputHandler.h"
 
 const int screenWidth = 720;
 const int screenHeight = 380;
@@ -26,7 +26,7 @@ int main()
     
     
     try {
-    
+        InputHandler inputHandler;
         const char raylib[] = "Made using Raylib";
         Texture2D RaylibLogo = LoadTexture("./Resources/Sprites/raylib_256x256.png");
 
