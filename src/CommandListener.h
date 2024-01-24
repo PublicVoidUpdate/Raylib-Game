@@ -6,6 +6,7 @@
  *
  * See License.txt for license.
  */
+#include "raylib-cpp.hpp"
 
 #pragma once
 
@@ -20,13 +21,7 @@ public:
 	// Child classes, override the methods below that you need to respond
 	// to user/AI commands
 	
-	virtual void goUp();
-	
-	virtual void goLeft();
-	
-	virtual void goRight();
-	
-	virtual void goDown();
+	virtual void Movement(Vector2);
 	
 	/** Called when none of the other go*() are called. 
 	 */

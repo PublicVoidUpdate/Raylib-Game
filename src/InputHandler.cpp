@@ -9,7 +9,9 @@
  #include "InputHandler.h"
 
  #include "CommandListener.h"
- #include "raylib.h"
+
+ #include "raylib-cpp.hpp"
+ #include "raymath.h"
 
  InputHandler::InputHandler() {
  	p1GamepadID = 0;
@@ -19,33 +21,33 @@
  }
 
  void InputHandler::handleInput(CommandListener &listener) {
- 	bool moving = false;
+ 	// bool moving = false;
+    float x;
+    float y;
  	
  	// Up/down
- 	if (IsKeyDown(KEY_UP) || IsKeyDown(KEY_W) || 
- 			IsGamepadButtonDown(p1GamepadID, GAMEPAD_BUTTON_LEFT_FACE_UP)) {
- 		listener.goUp();
- 		moving = true;
- 	} else if (IsKeyDown(KEY_DOWN) || IsKeyDown(KEY_S) || 
- 				IsGamepadButtonDown(p1GamepadID, GAMEPAD_BUTTON_LEFT_FACE_DOWN)) {
- 		listener.goDown();
- 		moving = true;
- 	}
+    if(IsKeyDown(KEY_D) == true)
+    {
+        x = 1;
+    }
+    if(IsKeyDown(KEY_A) == true)
+    {
+        x = -1;
+    }
+    if(IsKeyDown(KEY_W) == true)
+    {
+        y = -1;
+    }
+    if(IsKeyDown(KEY_S) == true)
+    {
+        y = 1;
+    }
+    Vector2 InputDir = (Vector2){x , y};
+    listener.Movement(Vector2Normalize(InputDir));
  	
- 	// Left/right
- 	if (IsKeyDown(KEY_RIGHT) || IsKeyDown(KEY_D) || 
- 			IsGamepadButtonDown(p1GamepadID, GAMEPAD_BUTTON_LEFT_FACE_RIGHT)) {
- 		listener.goRight();	
- 		moving = true;
- 	} else if (IsKeyDown(KEY_LEFT) || IsKeyDown(KEY_A) || 
- 			IsGamepadButtonDown(p1GamepadID, GAMEPAD_BUTTON_LEFT_FACE_LEFT)) {
- 		listener.goLeft();
- 		moving = true;
- 	}
- 	
- 	if(!moving) {
- 		listener.goNowhere();
- 	}
+ 	// if(!moving) {
+ 	// 	listener.goNowhere();
+ 	// }
  	
  	// Select, push, pull, etc.
  	if(IsMouseButtonDown(KEY_RIGHT) || 

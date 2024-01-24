@@ -5,6 +5,8 @@
 
 #include "CommandListener.h"
 #include <cstdio>
+#include "raylib-cpp.hpp"
+
 
 CommandListener::CommandListener() {
 }
@@ -12,16 +14,8 @@ CommandListener::CommandListener() {
 CommandListener::~CommandListener() {
 }
 	
-void CommandListener::goUp() {
-}
 	
-void CommandListener::goLeft() {
-}
-	
-void CommandListener::goRight() {
-}
-	
-void CommandListener::goDown() {
+void CommandListener::Movement(Vector2 Inputdir) {
 }
 
 void CommandListener::goNowhere() {
