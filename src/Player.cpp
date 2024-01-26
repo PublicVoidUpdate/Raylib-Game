@@ -5,23 +5,10 @@
 
 #include "Player.h"
 
-// static const int UpWalk = 1;
-// static const int DownWalk = 0;
-// static const int LeftWalk= 3;
-// static const int RightWalk = 2;
-
-// static bool isFootstepFrame(int frameIndex) {
-	
-// 	if(frameIndex == footstepFrame1 || frameIndex == footstepFrame2) {
-// 		return true;
-// 	} else {
-// 		return false;
-// 	}
-// }
-
 
 Player::Player() : 
 		texture("./Resources/Sprites/Body/char1.png")
+
 		//footstepSound("Single-footstep-in-grass-A-www.fesliyanstudios.com.mp3"),
 		//landingSound("Single-footstep-in-grass-B-www.fesliyanstudios.com.mp3") 
 {
@@ -87,6 +74,7 @@ void Player::goNowhere() {
 }
 	
 void Player::Movement(Vector2 InputDir) {
+	velocity = InputDir;
 
 		//frameRec.y = frameHeight*1;
 
@@ -129,7 +117,7 @@ void Player::Movement(Vector2 InputDir) {
                     frameRec.y = (float)(texture.height/49)*1;
                 }
             }
-            velocity = InputDir;
+            
 		
 }
 	

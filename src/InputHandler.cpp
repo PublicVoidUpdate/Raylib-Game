@@ -21,7 +21,7 @@
  }
 
  void InputHandler::handleInput(CommandListener &listener) {
- 	// bool moving = false;
+ 	// // bool moving = false;
     float x;
     float y;
  	
@@ -44,6 +44,7 @@
     }
     Vector2 InputDir = (Vector2){x , y};
     listener.Movement(Vector2Normalize(InputDir));
+    //listener.Movement((Vector2){GetGamepadAxisMovement(0, GAMEPAD_AXIS_LEFT_X), GetGamepadAxisMovement(0, GAMEPAD_AXIS_LEFT_Y)});
  	
  	// if(!moving) {
  	// 	listener.goNowhere();
