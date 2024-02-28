@@ -1,80 +1,42 @@
 #include <raylib-cpp.hpp>
-#include "InputHandler.h"
-#include "PlayerScene.h"
-#include <stddef.h>
-#include <stdlib.h>
+#include "errorhandling.hpp"
 
 
-const int screenWidth = 720;
-const int screenHeight = 380;
 
-void showErrorAndExit(const char *errMsg) {
-    while (!WindowShouldClose()) {
-        BeginDrawing();
-            ClearBackground(BLACK);
-            DrawText(errMsg, 20, 20, 20, RED);
-        EndDrawing();
-    }
-    
-    exit(EXIT_FAILURE);
-}
+int main() {
 
-int main() 
-{
-    int retVal = EXIT_SUCCESS;
+
+    // -------------------- Run Once Logic ---------
+    readcheck(); //should split read and write, crash on read fail, continue on ROMode if write fail
     
     // Initialization
+    int screenWidth = 720;
+    int screenHeight = 380;
 
-
-    raylib::Window window(screenWidth, screenHeight, "Cozy - cpp");
+    raylib::Color textColor(BLACK);
+    raylib::Window w(screenWidth, screenHeight, "Debug Rewrite");
     
+    SetTargetFPS(60);
+    SetWindowState(FLAG_WINDOW_RESIZABLE);
     
-    try {
-        InputHandler inputHandler;
-        // const char raylib[] = "Made using Raylib";
-        // Texture2D RaylibLogo = LoadTexture("./Resources/Sprites/raylib_256x256.png");
-
-        std::shared_ptr<Scene> currScene = std::make_shared<PlayerScene>();
-        currScene->loadResources();
-        currScene->start();
+    // Main game loop
+    while (!w.ShouldClose()) // Detect window close button or ESC key //should def turn off esc but ill do it later
+    {
+        // ----------------------- Updates every frame ---------------------
 
 
-        SetTargetFPS(60);
+        BeginDrawing();
+        ClearBackground(RAYWHITE);
+        textColor.DrawText("Congrats! You created your first window!", 190, 200, 20);
 
-        // Main game loop
-        while (!window.ShouldClose()) // Detect window close button or ESC key
-        {
-
-                        inputHandler.handleInput(*currScene);
-            auto nextScene = currScene->update();
-            if(nextScene) {
-                nextScene->loadResources();
-                nextScene->start();
-                currScene = nextScene;
-            }
-
-            // Update
-
-            // TODO: Update your variables here
-
-            // Draw
-            BeginDrawing();
-            
-            currScene->draw();
-            // ClearBackground(BLACK);
-            // DrawTexture(RaylibLogo, GetRenderWidth()/2 - RaylibLogo.width/2, GetRenderHeight()/2 - RaylibLogo.height/2, RAYWHITE);
-            // DrawText(raylib, (GetRenderWidth()/2) - (MeasureText(raylib, 10)/2), (GetRenderHeight()/2 + RaylibLogo.height/2), 10, RAYWHITE);
- 
-            EndDrawing();
-            
-        } 
-        //UnloadTexture(RaylibLogo); 
-    } catch(std::runtime_error &e) {
-        showErrorAndExit(e.what());
-        retVal = EXIT_FAILURE; 
+        // -------------------- No update logic past this point. -----------------------
+        EndDrawing();
     }
-    
 
-    return retVal;
 
+    //--------------------- Unload every resource and close --------------------------
+    CloseWindow();
+    printf("closing\n");
+    //--------------------- return exit code should be zero unless there is issue ----------------------------
+    return 0;
 }
